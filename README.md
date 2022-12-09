@@ -191,32 +191,22 @@ Now its time to `reboot` into the new system!
 
 ### Enable Wireless Network using iwd
 
-Create `/etc/iwd/main.conf` and add this:
+Enable wireless and dhcp on boot
 
 ```bash
-[General]
-EnableNetworkConfiguration=true
-
-[Network]
-NameResolvingService=systemd
-```
-
-Enable systemd network services and wireless on boot
-
-```bash
-systemctl enable --now iwd systemd-networkd systemd-resolved
+systemctl enable --now iwd dhcpcd
 ```
 
 Launch `iwctl` and connect to your AP using `station wlan0 connect YOURSSID`
 Type exit to leave.
 
-### Fix DNS resolv.conf
+### Disable IPV6
 
-Since iam using systemd resolved, the `/etc/resolv.conf` should be symlinked to
-`/run/systemd/resolve/stub-resolv.conf` (See [systemd-resolved wiki](https://wiki.archlinux.org/title/Systemd-resolved#DNS)) using
+I still had some issues with IPv6, so i disabled it in `/etc/dhcpcd.conf`
 
 ```bash
-ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+noipv6rs
+noipv6
 ```
 
 ### Enable NTP Timeservice
