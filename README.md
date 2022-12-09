@@ -86,7 +86,7 @@ Just install a base system with some tools for first boot:
 
 ```bash
 pacstrap /mnt base base-devel linux linux-firmware btrfs-progs \
-  intel-ucode neovim iwd
+  intel-ucode neovim iwd dhcpcd openresolv
 ```
 
 After this, generate the filesystem table using
