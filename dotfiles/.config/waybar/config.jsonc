@@ -7,8 +7,8 @@
     "gtk-layer-shell": true,
     "height": 50,
     "modules-left": ["custom/launch_wofi","wlr/workspaces","hyprland/window"],
-    "modules-center": ["custom/lock_screen","clock","custom/updates"],
-    "modules-right": ["temperature","battery","backlight","pulseaudio","pulseaudio#microphone","tray"],
+    "modules-center": ["custom/lock_screen","custom/updates","clock"],
+    "modules-right": ["tray","temperature","battery","backlight","pulseaudio","pulseaudio#microphone"],
 
     "hyprland/window": {
         "format": "{}"
@@ -23,31 +23,6 @@
         "format": "",
         "on-click": "sh -c '(sleep 0.5s; swaylock)' & disown",
         "tooltip": false
-    },
-
-    "cpu": {
-        "interval": 10,
-        "format": " {usage}%",
-        "max-length": 10,
-        "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
-    },
-
-    "disk": {
-        "interval": 30,
-        "format": "󰋊 {percentage_used}%",
-        "path": "/",
-        "tooltip": true,
-        "tooltip-format": "HDD - {used} used out of {total} on {path} ({percentage_used}%)",
-        "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
-    },
-
-    "memory": {
-        "interval": 30,
-        "format": " {}%",
-        "max-length": 10,
-        "tooltip": true,
-        "tooltip-format": "Memory - {used:0.1f}GB used",
-        "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
     },
 
     "custom/updates": {
@@ -106,7 +81,9 @@
         "format-charging": " {capacity}%",
         "format-plugged": " {capacity}%",
         "format-alt": "{time} {icon}",
-        "format-icons": ["", "", "", "", "", "", "", "", "", "", ""]
+        "format-icons": ["", "", "", "", "", "", "", "", "", "", ""],
+        "tooltip": false,
+        "on-click": "gnome-power-statistics"
     },
 
     "pulseaudio": {
@@ -144,6 +121,6 @@
         "format": " {temperatureC}°C",
         "critical-threshold": 70,
         "format-critical": " {temperatureC}°C",
-        "on-click": "alacritty --start-as=fullscreen --title btop sh -c 'btop'"
+        "on-click": "xsensors"
     }
 }
