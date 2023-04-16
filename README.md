@@ -1,13 +1,10 @@
-# Arch Linux on Razer Book 13 (RZ09-0357)
+# Arch Linux on Razer Book 13 (RZ09-0357) in Hyprland
 
-Theese are my personal notes setting up a Razer Book 13 with Arch Linux. Iam using full disk encryption, wayland using sway and btrfs as filesystem.
+This are my personal notes setting up a Razer Book 13 with Arch Linux using Hyprland as window manager. Iam using full disk encryption, and btrfs as filesystem.
 
 Main usage is for DevOps Development, Virtualization and some gaming. Configs for localisations are for german, so adjust for your needs.
 
-WIP: I will also try to implement some security and privacy (tor transparent proxy, etc).
-You may also check [https://www.privacyguides.org](https://www.privacyguides.org)
-
-![desk](desk_v2.png)
+A big THANK to [SOL](https://github.com/SolDoesTech/HyprV2) for getting me into hyprland. Most of the Hyprland config is from his repo. Kudos!
 
 [TOC]
 
@@ -86,7 +83,7 @@ Just install a base system with some tools for first boot:
 
 ```bash
 pacstrap /mnt base base-devel linux linux-firmware btrfs-progs \
-  intel-ucode iwd dhcpcd openresolv zsh git git-lfs curl wget reflector neovim
+  intel-ucode networkmanager zsh git git-lfs curl wget reflector neovim
 ```
 
 After this, generate the filesystem table using
@@ -211,29 +208,28 @@ Now its time to `reboot` into the new system!
 
 ## After first Reboot
 
-### Enable Wireless Network using iwd
+### Enable Wireless Network using NetworkManager
 
-Enable wireless and dhcp on boot
-
-```bash
-systemctl enable --now iwd dhcpcd
-```
-
-Launch `iwctl` and connect to your AP using `station wlan0 connect YOURSSID`
-Type exit to leave.
-
-### Disable IPV6
-
-I still had some issues with IPv6, so i disabled it in `/etc/dhcpcd.conf`
+Enable networkmanager on boot
 
 ```bash
-noipv6rs
-noipv6
+systemctl enable --now NetworkManager
+nmcli device wifi connect "{YOURSSID}" password "{SSIDPASSWORD}"
 ```
 
 ### WLAN Powersave
 
 I want to disable all kind of WLAN powersaving, cause i had issues
+
+For NetworkManager
+
+```bash
+# /etc/NetworkManager/conf.d/wifi-powersave-off.conf
+[connection]
+wifi.powersave = 2
+```
+
+And also for kernel module
 
 ```bash
 # /etc/modprobe.d/iwlwifi.conf
@@ -265,35 +261,100 @@ Now `exit` and relogin with the new {MYUSERNAME}
 
 ## Install Desktop Environment
 
-### Install Sway
+### YAY
 
-I want a wayling tiling desktop. This and other tools i found usefull will be installed:
-
-```bash
-sudo pacman -Syu sway alacritty firefox-developer-edition-i18n-de \
-   cantarell-fonts ttf-font-awesome ttf-dejavu wofi waybar man-db \
-   wl-clipboard swaybg mako swaylock acpi bluez bluez-utils \
-   pulseaudio pavucontrol sof-firmware alsa-firmware alsa-ucm-conf
-```
-
-### Setup Sway
-
-Copy the sway config template
+I want to use YAY for managing packets
 
 ```bash
-mkdir -p .config/sway
-cp /etc/sway/config ~/.config/sway
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si --noconfirm
 ```
 
-Settings for Sway, Alacritty, etc are keept in this repo.
+### Hyprland and other Tools
 
-### Wayland Compatibility Layer
+This tools, i found usefull, will be installed:
+
+* hyprland: this is the compositor
+
+* alacritty: my default terminal
+
+* waybar-hyprland: fork of waybar with Hyprland workspace support
+
+* firefox-developer-edition: my default browser
+
+* swww: used to set a desktop background image
+
+* swaylock-effects: allows for the locking of the desktop its a fork that adds some editional visual effects
+
+* wofi: application launcher menu
+
+* mako: graphical notification daemon
+
+* xdg-desktop-portal-hyprland-git: xdg-desktop-portal backend for hyprland
+
+* thunar: graphical file manager
+
+* mc: midnight commander, a terminal file manager
+
+* polkit-gnome: to get superuser access on some graphical application
+
+* pamixer: audio settings
+
+* pavucontrol: GUI for managing audio and audio devices
+
+* brightnessctl: control monitor and keyboard bright level
+
+* bluez: bluetooth service
+
+* bluez-utils: command line utilities to interact with bluettoth devices
+
+* blueman: bluetooth manager
+
+* network-manager-applet: managing network connection
+
+* gvfs: automount usb drives, etc
+
+* thunar-archive-plugin: front ent for thunar to work with compressed files
+
+* file-roller: tools for working with compressed files
+
+* btop: terminal resource monitor
+
+* pacman-contrib: adds additional tools for pacman. needed for showing system updates in the waybar
+
+* ttf-jetbrains-mono-nerd: the main font
+
+* noto-fonts-emoji: emoji fonts
+
+* cantarell-fonts: nice fonts
+
+* ttf-dejavu: also nice fonts
+
+* lxappearance: set GTK theme
+
+* xfce4-settings: needed to set GTK theme
+
+* pulseaudio: audio server
+
+* sof-firmware, alsa-firmware and alsa-ucm-settings are needed for this Razer Book
 
 ```bash
-sudo pacman -Sy xorg-xwayland xorg-xlsclients glfw-wayland
+yay -Sy hyprland alacritty waybar-hyprland firefox-developer-edition-i18n-de \
+  swww swaylock-effects wofi mako xdg-desktop-portal-hyprland-git \
+  brightnessctl mc thunar polkit-gnome pamixer pavucontrol \
+  bluez bluez-utils blueman network-manager-applet gvfs \
+  thunar-archive-plugin file-roller btop pacman-contrib power-profiles-daemon \
+  ttf-jetbrains-mono-nerd noto-fonts-emoji cantarell-fonts ttf-dejavu \
+  lxappearance xfce4-settings pulseaudio sof-firmware alsa-firmware alsa-ucm-conf
 ```
 
-This install compatibility for X11 and OpenGL. Using xlsclients to get a list of all windows running XWayland
+Enable bluetooth and remove some might installed desktop portals
+
+```bash
+sudo systemctl enable bluetooth
+yay -R --noconfirm xdg-desktop-portal-gnome xdg-desktop-portal-gtk
+```
 
 ### Enable Wayland for Firefox
 
@@ -303,54 +364,41 @@ This install compatibility for X11 and OpenGL. Using xlsclients to get a list of
 MOZ_ENABLE_WAYLAND=1
 ```
 
-### Install Polkit
+### Theming
 
-Install `polkit-gnome` and add it to `.config/sway/config` like:
+Copy the dotfiles to their locations and edit them as needed..
 
-```bash
-exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-```
-
-### Install Filemanagers
-
-I use Midnight Commander and also Thunar with GVFS
+Apply a system-wide dark theme and statusbar/launcher based on Catppuccin (mocha)
 
 ```bash
-sudo pacman -Sy mc thunar gvfs-smb gvfs-nfs \
-  thunar-archive-plugin xarchiver unzip p7zip \
-  thunar-media-tags-plugin tumbler poppler-glib poppler-data
+ln -sf ~/.config/waybar/style/style-dark.css ~/.config/waybar/style.css
+ln -sf ~/.config/wofi/style/style-dark.css ~/.config/wofi/style.css
+xfconf-query -c xsettings -p /Net/ThemeName -s "Adwaita-dark"
+xfconf-query -c xsettings -p /Net/IconThemeName -s "Adwaita-dark"
+gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
+gsettings set org.gnome.desktop.interface icon-theme "Adwaita-dark"
 ```
+
+
+### Oh-My-ZSH and Starship
+
+I like to use oh-my-zsh with starship prompt
+
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+yay -Sy starship
+```
+
+Remark `ZSH_THEME="..` and set the starship init at the end of `~/.zshrc` with: `eval "$(starship init zsh)"´
 
 ### Install Screnshot Tools
 
-For screenshots i use the grimshot bash script together with grim,slurp and swappy
+For screenshots i use the swappy
 
 ```bash
 sudo pacman -Sy grim slurp jq otf-font-awesome swappy
 ````
 
-In sway add a keybinding like:
-
-```bash
-bindsym --locked Print exec ~/.local/share/scripts/grimshot --notify save output - | swappy -f - & SLIGHT=$(light -G) && light -A 30 && sleep 0.1 && light -S $SLIGHT
-```
-
-### Oh-My-ZSH
-
-I like to use oh-my-zsh with Powerlevel10K theme
-
-```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-cd ~/.local/share/fonts
-wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
-wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
-wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
-wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
-fc-cache -v
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-```
-
-Set `ZSH_THEME="powerlevel10k/powerlevel10k"` in `~/.zshrc`
 
 ## DevOps Tools
 
@@ -358,15 +406,11 @@ Apps and tools i use for devops tasks
 
 ### VS Code
 
-Iam using VSCode binary and install it from AUR
+Iam using VSCode binary and install it from AUR using
 
 ```bash
-git clone https://aur.archlinux.org/visual-studio-code-bin.git
-cd visual-studio-code-bin
-makepkg -is
+yay -S visual-studio-code-bin
 ```
-
-Used Addons are in `files/vscode-addons.txt`
 
 ### Python, Ansible and Terraform
 
@@ -423,7 +467,6 @@ Add your user to the group libvirt
 
 ```bash
 sudo usermod -a -G libvirt $(whoami)
-newgrp libvirt
 ```
 
 Enable nested virtualization
@@ -439,6 +482,12 @@ Minikube and stuff
 ```bash
  sudo pacman -S minikube kubectl helm go k9s kubeone
 ```
+
+For Openlens use the repo from AUR
+
+```bash
+yay -S openlens-git
+````
 
 For k8s configs i use context switching
 (each config is in its own directory to keep it clean) and set some code in my zshrc:
@@ -464,17 +513,9 @@ done
 IFS="$OIFS"
 ```
 
-For Openlens clone the repo from AUR
-
-```bash
-git clone https://aur.archlinux.org/openlens-bin.git
-cd openlens-git
-makepkg -is
-````
-
 ## Tweaks
 
-### Autologin to Sway
+### Autologin
 
 Create a directory named `getty@tty1.service.d/` inside the systemd system unit files directory like:
 
@@ -499,11 +540,11 @@ sudo systemctl daemon-reload
 sudo systemctl enable getty@tty1
 ```
 
-To my zshrc i add theese lines at the end:
+To my zshrc i add theese lines at the end to autostart the hyprland desktop (script in my dotfiles):
 
 ```bash
 if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
-  exec sway
+  exec /home/{MYUSERNAME}/hypr
 fi
 ```
 
@@ -526,13 +567,11 @@ cd polychromatic
 makepkg -is
 ```
 
-## WIP: Security and Privacy
-
-Thinks to make my little book a bit more secure and protect my privacy as much as i wish.
+## WIP: Yubikey
 
 ### Using FIDO 2 (Yubikey) with luks partition and systemd
 
-Cause passwords are not secure, i would like to use yubikey to unlock the luks partition.
+I would also like to use yubikey to unlock the luks partition.
 Install the needed FIDO lib and add yubikey to luks partition headers
 
 ```bash
@@ -556,7 +595,7 @@ options .. rd.luks.options=fido2-device=auto root=..
 
 Now after reboot, yubikey is required to unluck luks partion
 
-## Gaming using Steam Client
+## Gaming
 
 ### Enable 32-Bit Lib
 
