@@ -6,6 +6,8 @@ Main usage is for DevOps Development, Virtualization and some gaming. Configs fo
 
 A big THANK to [SOL](https://github.com/SolDoesTech/HyprV2) for getting me into hyprland. Most of the Hyprland config is from his repo. Kudos!
 
+![desk](desk_v3.png)
+
 [TOC]
 
 ## Basic Install
@@ -176,7 +178,6 @@ echo "options rd.luks.name=$(blkid -s UUID -o value /dev/nvme0n1p3)=cryptsys \
   rd.luks.options=password-echo=no root=/dev/mapper/cryptsys \
   rootflags=subvol=@ rw" >> /boot/loader/entries/arch.conf
 ```
-
 
 ### Add Swap Partition
 
@@ -379,7 +380,6 @@ gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
 gsettings set org.gnome.desktop.interface icon-theme "Adwaita-dark"
 ```
 
-
 ### Oh-My-ZSH and Starship
 
 I like to use oh-my-zsh with starship prompt
@@ -398,7 +398,6 @@ For screenshots i use the swappy
 ```bash
 sudo pacman -Sy grim slurp jq otf-font-awesome swappy
 ````
-
 
 ## DevOps Tools
 
