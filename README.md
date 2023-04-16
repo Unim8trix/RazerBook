@@ -324,6 +324,10 @@ This tools, i found usefull, will be installed:
 
 * pacman-contrib: adds additional tools for pacman. needed for showing system updates in the waybar
 
+* xsensors: GTK app for hardware temperature
+
+* gnome-power-manager: app for power management
+
 * ttf-jetbrains-mono-nerd: the main font
 
 * noto-fonts-emoji: emoji fonts
@@ -343,8 +347,8 @@ This tools, i found usefull, will be installed:
 ```bash
 yay -Sy hyprland alacritty waybar-hyprland firefox-developer-edition-i18n-de \
   swww swaylock-effects wofi mako xdg-desktop-portal-hyprland-git \
-  brightnessctl mc thunar polkit-gnome pamixer pavucontrol \
-  bluez bluez-utils blueman network-manager-applet gvfs \
+  brightnessctl mc thunar polkit-gnome pamixer pavucontrol xsensors \
+  bluez bluez-utils blueman network-manager-applet gvfs gnome-power-manager \
   thunar-archive-plugin file-roller btop pacman-contrib power-profiles-daemon \
   ttf-jetbrains-mono-nerd noto-fonts-emoji cantarell-fonts ttf-dejavu \
   lxappearance xfce4-settings pulseaudio sof-firmware alsa-firmware alsa-ucm-conf
