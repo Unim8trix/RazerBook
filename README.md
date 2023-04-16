@@ -487,10 +487,16 @@ Minikube and stuff
  sudo pacman -S minikube kubectl helm go k9s kubeone
 ```
 
+Set kvm2 as default driver for minikube
+
+```bash
+minikube config set driver kvm2
+```
+
 For Openlens use the repo from AUR
 
 ```bash
-yay -S openlens-git
+yay -S openlens-bin
 ````
 
 For k8s configs i use context switching
