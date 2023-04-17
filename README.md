@@ -272,6 +272,13 @@ cd yay
 makepkg -si --noconfirm
 ```
 
+Add some color tweaks to pacman, add this to `/etc/pacman.conf` misc options
+
+```bash
+colors
+ILoveCandy
+```
+
 ### Hyprland and other Tools
 
 This tools, i found usefull, will be installed:
