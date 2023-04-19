@@ -392,16 +392,24 @@ gsettings set org.gnome.desktop.interface icon-theme "Adwaita-dark"
 gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
 ```
 
-### Oh-My-ZSH and Starship
+### Oh-My-ZSH
 
-I like to use oh-my-zsh with starship prompt
+I like to use oh-my-zsh with Powerlevel10k theme
 
 ```bash
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-yay -Sy starship
+
+cd ~/.local/share/fonts
+wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
+wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
+wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
+fc-cache -v
+
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 ```
 
-Remark `ZSH_THEME="..` and set the starship init at the end of `~/.zshrc` with: `eval "$(starship init zsh)"´
+Set `ZSH_THEME="powerlevel10k/powerlevel10k"` in `~/.zshrc`
 
 ### Install Screnshot Tools
 
