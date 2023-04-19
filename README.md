@@ -6,7 +6,7 @@ Main usage is for DevOps Development, Virtualization and some gaming. Configs fo
 
 A big THANK to [SOL](https://github.com/SolDoesTech/HyprV2) for getting me into hyprland. Most of the Hyprland config is from his repo. Kudos!
 
-![desk](desk_v3.png)
+![desk](desk_v4.png)
 
 [TOC]
 
