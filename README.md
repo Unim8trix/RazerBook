@@ -566,7 +566,7 @@ To my zshrc i add theese lines at the end to autostart the hyprland desktop (scr
 
 ```bash
 if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
-  exec /home/{MYUSERNAME}/hypr
+  exec Hyprland
 fi
 ```
 
