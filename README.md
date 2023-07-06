@@ -570,7 +570,7 @@ if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
 fi
 ```
 
-After reboot you will be booted straight into sway desktop
+After reboot you will be booted straight into hyprland desktop
 
 ### Keyboard Lightning
 
