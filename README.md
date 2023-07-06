@@ -577,16 +577,10 @@ After reboot you will be booted straight into hyprland desktop
 Install openrazer driver and polychromatic frontend from AUR
 
 ```bash
-cd ~/AUR
-git clone https://aur.archlinux.org/openrazer.git
-cd openrazer
-makepkg -is
+yay -Sy openrazer-meta
 sudo gpasswd -a $USER plugdev
 
-cd ~/AUR
-git clone https://aur.archlinux.org/polychromatic.git
-cd polychromatic
-makepkg -is
+yay -Sy polychromatic.git
 ```
 
 ## WIP: Yubikey
