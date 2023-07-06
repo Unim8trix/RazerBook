@@ -287,7 +287,7 @@ This tools, i found usefull, will be installed:
 
 * alacritty: my default terminal
 
-* waybar-hyprland: fork of waybar with Hyprland workspace support
+* waybar: wayland bar with hyprland support
 
 * firefox-developer-edition: my default browser
 
@@ -299,7 +299,7 @@ This tools, i found usefull, will be installed:
 
 * mako: graphical notification daemon
 
-* xdg-desktop-portal-hyprland-git: xdg-desktop-portal backend for hyprland
+* xdg-desktop-portal-hyprland: xdg-desktop-portal backend for hyprland
 
 * thunar: graphical file manager
 
@@ -352,8 +352,8 @@ This tools, i found usefull, will be installed:
 * sof-firmware, alsa-firmware and alsa-ucm-settings are needed for this Razer Book
 
 ```bash
-yay -Sy hyprland alacritty waybar-hyprland firefox-developer-edition-i18n-de \
-  swww swaylock-effects wofi mako xdg-desktop-portal-hyprland-git \
+yay -Sy hyprland alacritty waybar firefox-developer-edition-i18n-de \
+  swww swaylock-effects wofi mako xdg-desktop-portal-hyprland \
   brightnessctl mc thunar polkit-gnome pamixer pavucontrol xsensors \
   bluez bluez-utils blueman network-manager-applet gvfs gnome-power-manager \
   thunar-archive-plugin file-roller btop pacman-contrib power-profiles-daemon \
