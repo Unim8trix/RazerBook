@@ -1,8 +1,8 @@
 # Arch Linux on Razer Book 13 (RZ09-0357) in Hyprland
 
-This are my personal notes setting up a Razer Book 13 with Arch Linux using Hyprland as window manager. Iam using full disk encryption, and btrfs as filesystem.
+These are my personal notes setting up Razer Book 13 with Arch Linux using Hyprland as window manager. Iam using full disk encryption, and btrfs as filesystem.
 
-Main usage is for DevOps Development, Virtualization and some gaming. Configs for localisations are for german, so adjust for your needs.
+Main usage is for Kubernetes/Virtualization/DevOps Stuff and some gaming. Configs for localisations are for german, so adjust for your needs.
 
 A big THANK to [SOL](https://github.com/SolDoesTech/HyprV2) for getting me into hyprland. Most of the Hyprland config is from his repo. Kudos!
 
