@@ -281,6 +281,11 @@ Fix a bug in the `2020.10.10-1` realease of the package with
 ```bash
 sed -i 's/icolor brightnormal/icolor normal/g' /usr/share/nano-syntax-highlighting/nanorc.nanorc
 ```
+
+### Prevent debug packages to build
+
+In `/etc/makepkg.conf` search the line for `OPTIONS=(strip ....` and change `debug` to `!debug`
+
 ## Install Desktop Environment
 
 ### YAY
