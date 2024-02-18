@@ -307,10 +307,6 @@ This tools, i found usefull, will be installed:
 
 * polkit-gnome: to get superuser access on some graphical application
 
-* pamixer: audio settings
-
-* pavucontrol: GUI for managing audio and audio devices
-
 * brightnessctl: control monitor and keyboard bright level
 
 * bluez: bluetooth service
@@ -347,18 +343,18 @@ This tools, i found usefull, will be installed:
 
 * xfce4-settings: needed to set GTK theme
 
-* pulseaudio: audio server
+* pipewire: audio server
 
 * sof-firmware, alsa-firmware and alsa-ucm-settings are needed for this Razer Book
 
 ```bash
 yay -Sy hyprland alacritty waybar firefox-developer-edition-i18n-de \
   swww swaylock-effects wofi mako xdg-desktop-portal-hyprland \
-  brightnessctl mc thunar polkit-gnome pamixer pavucontrol xsensors \
+  brightnessctl mc thunar polkit-gnome pipewire-alsa pipewire-jack xsensors \
   bluez bluez-utils blueman network-manager-applet gvfs gnome-power-manager \
   thunar-archive-plugin file-roller btop pacman-contrib power-profiles-daemon \
   ttf-jetbrains-mono-nerd noto-fonts-emoji cantarell-fonts ttf-dejavu \
-  lxappearance xfce4-settings pulseaudio sof-firmware alsa-firmware alsa-ucm-conf
+  lxappearance xfce4-settings sof-firmware alsa-firmware alsa-ucm-conf
 ```
 
 Enable bluetooth and remove some might installed desktop portals
