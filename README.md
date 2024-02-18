@@ -261,6 +261,26 @@ Execute `EDITOR=nano visudo` and uncomment `%wheel ALL=(ALL) ALL`
 
 Now `exit` and relogin with the new {MYUSERNAME}
 
+### Add syntax highlighting to nano
+
+Change to your homedirectory and
+
+```bash
+mkdir -p .config/nano
+cp /etc/nanorc ~/.config/nano/nanorc
+```
+
+Edit `nanorc` and add this line
+
+```bash
+include "/usr/share/nano-syntax-highlighting/*.nanorc"
+```
+
+Fix a bug in the `2020.10.10-1` realease of the package with
+
+```bash
+sed -i 's/icolor brightnormal/icolor normal/g' /usr/share/nano-syntax-highlighting/nanorc.nanorc
+```
 ## Install Desktop Environment
 
 ### YAY
