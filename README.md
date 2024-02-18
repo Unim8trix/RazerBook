@@ -182,6 +182,7 @@ echo "options rd.luks.name=$(blkid -s UUID -o value /dev/nvme0n1p3)=cryptsys \
 ### Add Swap Partition
 
 I dont use suspend-to-disk, so i add the swap partition to crypttab und add the swap entry to fstab.
+To `/etc/crypttab` add this line
 
 ```bash
 cryptswap  /dev/nvme0n1p2  /dev/urandom  swap,cipher=aes-xts-plain64,size=256
