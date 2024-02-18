@@ -37,7 +37,7 @@ Update System clock with `timedatectl set-ntp true`
 
 * `o` for new partition table
 * `n,1,<ENTER>,+1024M,ef00` for EFI Boot
-* `n,2,<ENTER>,+16G,8200` for swap partition
+* `n,2,<ENTER>,+16384M,8200` for swap partition
 * `n,3,<ENTER>,<ENTER>,8300` for system partition
 * `w` to save layout
 
