@@ -85,7 +85,7 @@ Just install a base system with some tools for first boot:
 
 ```bash
 pacstrap /mnt base base-devel linux linux-firmware btrfs-progs \
-  intel-ucode networkmanager zsh git git-lfs curl wget reflector neovim
+  intel-ucode networkmanager zsh git git-lfs curl wget reflector nano-syntax-highlighting
 ```
 
 After this, generate the filesystem table using
@@ -110,7 +110,7 @@ echo FONT=sun12x22 >> /etc/vconsole.conf
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 ```
 
-Modify `nvim /etc/hosts` with these entries. For static IPs, remove 127.0.1.1
+Modify `nano /etc/hosts` with these entries. For static IPs, remove 127.0.1.1
 
 ```bash
 127.0.0.1 localhost
@@ -118,7 +118,7 @@ Modify `nvim /etc/hosts` with these entries. For static IPs, remove 127.0.1.1
 127.0.1.1 {MYHOSTNAME}.localdomain {MYHOSTNAME}
 ```
 
-`nvim /etc/locale.gen` to uncomment the following lines. Change it to your locale and keep en_US cause some tools may need it.
+`nano /etc/locale.gen` to uncomment the following lines. Change it to your locale and keep en_US cause some tools may need it.
 
 ```bash
 de_DE.UTF-8 UTF-8
@@ -138,7 +138,7 @@ chsh -s /bin/zsh
 
 ### Add hooks to initramfs
 
-Edit the configuration with `nvim /etc/mkinitcpio.conf` and add `i915`
+Edit the configuration with `nano /etc/mkinitcpio.conf` and add `i915`
 to the MODULES section.
 
 I use systemd init style, so add `sd-vconsole and sd-encrypt` to hooks between
@@ -154,7 +154,7 @@ create Initramfs using `mkinitcpio -p linux`
 
 `bootctl --path=/boot install` installs bootloader
 
-`nvim /boot/loader/loader.conf` delete anything and add these few lines and save
+`nano /boot/loader/loader.conf` delete anything and add these few lines and save
 
 ```bash
 default arch.conf
@@ -162,7 +162,7 @@ timeout 1
 editor 0
 ```
 
-`nvim /boot/loader/entries/arch.conf` with these lines and save.
+`nano /boot/loader/entries/arch.conf` with these lines and save.
 
 ```bash
 title Arch Linux
@@ -256,7 +256,7 @@ useradd -m -g users -G wheel,lp,power,audio -s /bin/zsh {MYUSERNAME}
 passwd {MYUSERNAME}
 ```
 
-Execute `EDITOR=nvim visudo` and uncomment `%wheel ALL=(ALL) ALL`
+Execute `EDITOR=nano visudo` and uncomment `%wheel ALL=(ALL) ALL`
 
 Now `exit` and relogin with the new {MYUSERNAME}
 
